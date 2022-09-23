@@ -45,5 +45,16 @@ namespace ConsoleAppTodo.Data
             }
             return null;
         }
+        public Person[] RemovePersonIndex()
+        {
+            foreach (Person person in personArray)
+            {
+                personArray.Where(person => person.PersonId == personArray[0].PersonId).ToList().Remove(person);
+                Array.Resize(ref personArray, personArray.Length - 1);
+            }
+            return personArray;
+        }
+
     }
+
 }
