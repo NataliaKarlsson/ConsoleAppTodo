@@ -9,38 +9,37 @@ using ConsoleAppTodo.Models;
 
 namespace ConsoleAppTodo.Data
 {
-    internal class TodoService
+    public class TodoService
     {
         private static Todo[] todoArray = new Todo[0];
-
-        public Todo[] todo
+        public Todo[] TodoArray
         {
             get
             {
-                return todoArray;
-
+                return TodoArray;
             }
             set
             {
-
-                todoArray = value;
-
+                TodoArray = value;
             }
-
         }
 
-        public int size()
+        public int Size()
         {
             return todoArray.Length;
         }
-        public Todo? FindAll(int todoId)
+        public Todo[] FindAll()
         {
-            foreach (Todo todo in todoArray)
+            return todoArray;
+        }
+        public Todo? FindById(int todoId)
+        {
+            for (int i = 0; i < todoArray.Length; i++)
 
             {
-                if (todo.TodoId == todoId)
+                if (todoArray[i].TodoId == todoId)
                 {
-                    return todo;
+                    return todoArray[i];
                 }
             }
             return null;
@@ -53,11 +52,7 @@ namespace ConsoleAppTodo.Data
             return newTodo;
 
         }
-        public void Clear()
-        {
-            todoArray.ToList().Clear();
 
-        }
         public Todo[] FindByDoneStatus(bool doneStatus)
         {
             if (doneStatus.Equals(doneStatus))
@@ -89,9 +84,6 @@ namespace ConsoleAppTodo.Data
                 }
             }
             return todoArray;
-
-
-
         }
 
         public Todo[] FindUnassignedTodoItems()
@@ -104,18 +96,27 @@ namespace ConsoleAppTodo.Data
                 }
             }
 
-            return todoArray.ToArray();
-        }
-        public Todo[] RemoveTodoIndex()
+             return todoArray.ToArray();
+        }   
+
+        public bool RemoveTodoId(int personId)
         {
-            foreach (Todo todo in todoArray)
+            for (int i = 0; i < todoArray.Length; i++)
             {
-                todoArray.Where(todo => todo.TodoId == todoArray[0].TodoId).ToList().Remove(todo);
-                Array.Resize(ref todoArray, todoArray.Length - 1);
+                if (todoArray[i].TodoId == personId)
+                {
+                    todoArray[i] = todoArray[todoArray.Length - 1];
+                    Array.Resize<Todo>(ref todoArray, todoArray.Length);
+                }
             }
-            return todoArray;
+            return false;
         }
 
-    }
+        public void Clear()
+        {            
+    
+            todoArray = new Todo[0];
 
+        }
+    }
 }

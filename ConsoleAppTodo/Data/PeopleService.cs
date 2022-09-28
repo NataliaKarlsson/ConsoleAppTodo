@@ -8,53 +8,61 @@ using ConsoleAppTodo.Models;
 
 namespace ConsoleAppTodo.Data
 {
-    internal class PeopleService
+    public class PeopleService
     {
         //An array
         private static Person[] personArray = new Person[0];
-
-        public Person[] person
+        public Person[] PersonArray
         {
             get
             {
                 return personArray;
-
             }
             set
             {
-
                 personArray = value;
-
             }
-
         }
 
-        public int size()
+        public int Size()
         {
             return personArray.Length;
         }
-        public Person FindAll(int personId)
+        public Person[] FindAll()
         {
-            foreach (Person person in personArray)
-
+            return personArray;
+        }
+        public Person? FindById(int personId)
+        {
+            for (int i = 0; i < personArray.Length; i++)
             {
-                if (person.PersonId == personId)
+                if (personArray[i].PersonId == personId)
                 {
-                    return person;
+                    return personArray[i];
                 }
             }
             return null;
         }
-        public Person[] RemovePersonIndex()
+        public Person CreateNewPerson(string firstName, string lastName)
         {
-            foreach (Person person in personArray)
-            {
-                personArray.Where(person => person.PersonId == personArray[0].PersonId).ToList().Remove(person);
-                Array.Resize(ref personArray, personArray.Length - 1);
-            }
-            return personArray;
+            Person newPerson = new Person(PersonSequencer.NextPersonId(), firstName, lastName);
+            Array.Resize<Person>(ref personArray, personArray.Length + 1);
+            personArray[personArray.Length - 1] = newPerson;
+            return newPerson;
         }
-
+        public bool RemovePersonId(int personId)
+        {
+            for (int i = 0; i < personArray.Length; i++)
+            {
+                if (personArray[i].PersonId == personId)
+                {
+                    personArray[i] = personArray[personArray.Length - 1];
+                    Array.Resize<Person>(ref personArray, personArray.Length - 1);
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 }

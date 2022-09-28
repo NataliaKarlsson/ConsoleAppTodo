@@ -10,7 +10,7 @@ namespace ConsoleAppTodo.Models
 
 
 
-    internal class Person
+    public class Person
     {
         private readonly int personId;
 

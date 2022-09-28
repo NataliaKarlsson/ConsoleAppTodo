@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppTodo.Data
 {
-    internal class PersonSequencer
+    public class PersonSequencer
     {
-        private static int personId;
+        private static int personId; 
 
-        public static int NextPersonId(int personId)
+        public static int PersonId
         {
-            return personId++;
+            get { return personId; }
+            set { personId = value; }
+        }
+        public static int NextPersonId()
+        {
+            personId++;
+            return personId;
         }
         public static void Reset ()
         {

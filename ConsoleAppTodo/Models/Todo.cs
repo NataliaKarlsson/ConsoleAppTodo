@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppTodo.Models
 {
-    internal class Todo
+    public class Todo
     {
         private readonly int todoId;
         private string? description;
